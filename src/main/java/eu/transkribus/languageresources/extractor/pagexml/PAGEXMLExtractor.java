@@ -406,6 +406,19 @@ public class PAGEXMLExtractor extends XMLExtractor implements IPagewiseTextExtra
 
         return createPageWisePairs(fileList1, fileList2);
     }
+    
+    public List<Pair<String, String>> extractTextFromFilePairwise(String path1, String path2)
+    {
+        List<File> fileList1 = Arrays.asList(new File[]{new File(path1)});
+        List<File> fileList2 = Arrays.asList(new File[]{new File(path2)});
+
+        if (fileList1.size() != fileList2.size())
+        {
+            return createWholeDocumentPair(fileList1, fileList2);
+        }
+
+        return createPageWisePairs(fileList1, fileList2);
+    }
 
     private List<Pair<String, String>> createWholeDocumentPair(List<File> fileList1, List<File> fileList2)
     {
