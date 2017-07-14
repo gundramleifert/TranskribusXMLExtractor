@@ -150,7 +150,7 @@ public class PAGEXMLExtractor extends XMLExtractor implements IPagewiseTextExtra
 
             for (int i = 0; i < nodeList.getLength(); i++)
             {
-                if (nodeList.item(i).getParentNode().getParentNode().equals("TextLine"))
+                if (nodeList.item(i).getParentNode().getParentNode().getNodeName().equals("TextLine"))
                 {
                     unicodeNodes.add(nodeList.item(i));
                 }
