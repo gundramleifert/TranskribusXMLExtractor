@@ -5,7 +5,7 @@
     <artifactId>TranskribusXMLExtractor</artifactId>
     <name>TranskribusXMLExtractor</name>
     <description>A tool for extracting text from XML</description>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
