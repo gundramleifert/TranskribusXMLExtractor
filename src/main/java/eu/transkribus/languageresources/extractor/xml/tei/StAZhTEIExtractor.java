@@ -19,16 +19,16 @@ import org.w3c.dom.NodeList;
  *
  * @author jnphilipp
  */
-public class DTATEIExtractor extends XMLExtractor implements IPagewiseTextExtractor {
-    public DTATEIExtractor() {
+public class StAZhTEIExtractor extends DTATEIExtractor implements IPagewiseTextExtractor {
+    public StAZhTEIExtractor() {
         super();
     }
 
-    public DTATEIExtractor(String pathToConfig) {
+    public StAZhTEIExtractor(String pathToConfig) {
         super(pathToConfig);
     }
 
-    public DTATEIExtractor(File configFile) {
+    public StAZhTEIExtractor(File configFile) {
         super(configFile);
     }
 
@@ -37,34 +37,9 @@ public class DTATEIExtractor extends XMLExtractor implements IPagewiseTextExtrac
         Document document = this.getDocumentFromFile(path);
         List<String> pages = new ArrayList<>();
 
-        NodeList pbs = document.getElementsByTagName("pb");
-        String text = this.documentToString(document);
+        NodeList pbs = document.getElementsByTagName("p");
         for ( int i = 0; i < pbs.getLength(); i++ )
-            pages.add(this.extractPage(text, pbs.item(i).getAttributes().getNamedItem("facs").getTextContent()));
+            pages.add(pbs.item(i).getTextContent());
         return pages;
-    }
-
-    @Override
-    public String extractTextFromPage(String path, int page) {
-        Document document = this.getDocumentFromFile(path);
-        NodeList pbs = document.getElementsByTagName("pb");
-        return this.extractPage(this.documentToString(document), pbs.item(page).getAttributes().getNamedItem("facs").getTextContent());
-    }
-
-    private String extractPage(String document, String facs) {
-        StringBuilder page = new StringBuilder();
-        Matcher matcher = Pattern.compile("<pb[^>]*facs=\"" + facs + "\"[^>]*/>(.+?)<pb[^>]*/>", Pattern.DOTALL).matcher(document);
-        while ( matcher.find() ) {
-            page.append(this.stripXML(this.parseAbbreviations(matcher.group(1))));
-        }
-        return page.toString().trim();
-    }
-
-    @Override
-    public Dictionary extractAbbreviationsFromPage(String path, int page) {
-        throw new UnsupportedOperationException("Not supported yet.");
-        /*Document document = this.getDocumentFromFile(path);
-        Dictionary dictionary = new Dictionary();
-        return dictionary;*/
     }
 }
